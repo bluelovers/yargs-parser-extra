@@ -29,6 +29,10 @@ export default parserArgv;
 ```
 
 ```ts
+import Parser from 'yargs-parser-extra/dist/bundle';
+```
+
+```ts
 import Parser from 'yargs-parser-extra';
 
 let argv = Parser([

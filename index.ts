@@ -3,7 +3,7 @@
  */
 
 import { Options as _Options, Arguments as _Arguments } from 'yargs-parser';
-import _Parser from 'yargs-parser';
+import _Parser, { detailed as _detailed, DetailedArguments as _DetailedArguments } from 'yargs-parser';
 import defaultsDeep from 'lodash.defaultsdeep';
 
 export const SymInputArgs = Symbol.for('InputArgs');
@@ -21,23 +21,36 @@ export type Arguments<T extends Record<string, any> = Record<string, any>, P ext
 	__?: string[],
 }
 
-export function parserArgv<T extends Record<string, any>, P extends InputArgs = InputArgs>(input: P, options?: Options)
+export type DetailedArguments<T extends Record<string, any> = Record<string, any>, P extends InputArgs = InputArgs> = Omit<Arguments, 'argv'> & {
+	argv: Arguments<T, P>;
+}
+
+export function handleOptions(options?: Options): Options
 {
-	if (options && options.filter)
+	return defaultsDeep({}, options, {
+		configuration: {
+			'populate--': true,
+		},
+	})
+}
+
+export function detailed<T extends Record<string, any>, P extends InputArgs = InputArgs>(input: P, options?: Options)
+{
+	options = handleOptions(options)
+
+	if (options.filter)
 	{
 		input = input.filter(options.filter) as any
 	}
 
-	if (options && options.map)
+	if (options.map)
 	{
 		input = input.slice().map(options.map) as any
 	}
 
-	let argv = _Parser(input as string[], defaultsDeep({}, options, {
-		configuration: {
-			'populate--': true,
-		},
-	})) as Arguments<T, P>;
+	let data = _detailed(input as string[], options) as any as DetailedArguments<T, P>;
+
+	let { argv } = data;
 
 	argv = {
 		_: argv._,
@@ -53,7 +66,14 @@ export function parserArgv<T extends Record<string, any>, P extends InputArgs = 
 		},
 	});
 
-	return argv as Arguments<T, P>
+	data.argv = argv;
+
+	return data
 }
 
-export default parserArgv
+export function parseArgv<T extends Record<string, any>, P extends InputArgs = InputArgs>(input: P, options?: Options)
+{
+	return detailed<T, P>(input, options).argv
+}
+
+export default parseArgv

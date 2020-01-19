@@ -1,6 +1,6 @@
 {
   "name": "yargs-parser-extra",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "parse argv with default cong and return input argv",
   "keywords": [
     "argument",
@@ -22,18 +22,20 @@
   },
   "license": "ISC",
   "author": "",
+  "types": "index.d.ts",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "build": "rollup --config rollup.config.js",
     "coverage": "npx nyc yarn run test",
     "lint": "npx eslint **/*.ts",
     "ncu": "npx yarn-tool ncu -u",
     "npm:publish": "npm publish",
     "postpublish": "git commit -m \"publish new version\" .",
     "prepublish:lockfile": "npx sync-lockfile .",
-    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test && yarn run build",
     "prepublishOnly_": "yarn run ncu && yarn run sort-package-json && yarn run test",
     "sort-package-json": "npx yarn-tool sort",
     "test": "npx ts-node ./test/demo.ts",
@@ -48,6 +50,11 @@
   },
   "devDependencies": {
     "@bluelovers/tsconfig": "^1.0.15",
-    "@types/lodash.defaultsdeep": "^4.6.6"
+    "@types/lodash.defaultsdeep": "^4.6.6",
+    "rollup": "^1.29.0",
+    "rollup-plugin-babel-minify": "^9.1.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.4"
   }
 }
