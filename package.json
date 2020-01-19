@@ -2,23 +2,6 @@
   "name": "yargs-parser-extra",
   "version": "1.0.0",
   "description": "parse argv with default cong and return input argv",
-  "license": "ISC",
-  "author": "",
-  "main": "index.js",
-  "scripts": {
-    "coverage": "npx nyc yarn run test",
-    "lint": "npx eslint **/*.ts",
-    "ncu": "npx yarn-tool ncu -u",
-    "npm:publish": "npm publish",
-    "postpublish_": "git commit -m \"publish new version\" .",
-    "prepublish:lockfile": "npx sync-lockfile .",
-    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
-    "sort-package-json": "npx yarn-tool sort",
-    "test": "npx ts-node ./test/demo.ts",
-    "test:mocha": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
-    "tsc:default": "tsc -p tsconfig.json",
-    "tsc:esm": "tsc -p tsconfig.esm.json"
-  },
   "keywords": [
     "argument",
     "parser",
@@ -27,13 +10,41 @@
     "cli",
     "parsing",
     "option",
-    "args",
-    "argument"
+    "args"
   ],
+  "homepage": "https://github.com/bluelovers/yargs-parser-extra#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/yargs-parser-extra/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/yargs-parser-extra.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "coverage": "npx nyc yarn run test",
+    "lint": "npx eslint **/*.ts",
+    "ncu": "npx yarn-tool ncu -u",
+    "npm:publish": "npm publish",
+    "postpublish": "git commit -m \"publish new version\" .",
+    "prepublish:lockfile": "npx sync-lockfile .",
+    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "prepublishOnly_": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "sort-package-json": "npx yarn-tool sort",
+    "test": "npx ts-node ./test/demo.ts",
+    "test:mocha": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\"",
+    "tsc:default": "tsc -p tsconfig.json",
+    "tsc:esm": "tsc -p tsconfig.esm.json"
+  },
   "dependencies": {
+    "@types/yargs-parser": "^15",
     "lodash.defaultsdeep": "^4.6.1",
-    "yargs-parser": "^16.1.0",
-    "@types/yargs-parser": "^15"
+    "yargs-parser": "^16.1.0"
   },
   "devDependencies": {
     "@bluelovers/tsconfig": "^1.0.15",
